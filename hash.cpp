@@ -1,25 +1,8 @@
-
+#include <vector>
 #include <list>
-
-template<typename K, typename V>
-class SimpleHashTable {
-    std::vector<std::list<std::pair<K,V>>> table{10};
-    
-    size_t hash(const K& key) const {
-        return std::hash<K>{}(key) % table.size();
-    }
-    
-public:
-    void put(const K& key, const V& value) {
-        auto& bucket = table[hash(key)];
-        for (auto& p : bucket) 
-            if (p.first == key) { p.second = value; return; }
-        bucket.push_back({key, value});
-    }
-    
-    V* get(const K& key) {
-        for (auto& p : table[hash(key)]) 
-            if (p.first == key) return &p.second;
-        return nullptr;
-    }
+template<class K,class V>
+struct H{
+    std::vector<std::list<std::pair<K,V>>> t{10};
+    void p(K k,V v){auto&b=t[std::hash<K>{}(k)%10];for(auto&p:b)if(p.first==k){p.second=v;return;}b.push_back({k,v});}
+    V*g(K k){for(auto&p:t[std::hash<K>{}(k)%10])if(p.first==k)return&p.second;return 0;}
 };
