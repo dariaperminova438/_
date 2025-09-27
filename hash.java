@@ -1,25 +1,13 @@
 import java.util.*;
-
-public class SimpleHashTable<K,V> {
-    private ArrayList<LinkedList<AbstractMap.SimpleEntry<K,V>>> table = new ArrayList<>();
-    
-    public SimpleHashTable(int size) {
-        for (int i = 0; i < size; i++) table.add(new LinkedList<>());
+class H<K,V> {
+    ArrayList<LinkedList<AbstractMap.SimpleEntry<K,V>>> t=new ArrayList<>();
+    H() { for(int i=0;i<10;i++) t.add(new LinkedList<>()); }
+    void p(K k,V v) { 
+        for(var e:t.get(k.hashCode()%10)) if(e.getKey().equals(k)) {e.setValue(v);return;}
+        t.get(k.hashCode()%10).add(new AbstractMap.SimpleEntry<>(k,v));
     }
-    
-    public void put(K key, V value) {
-        var bucket = table.get(Math.abs(key.hashCode()) % table.size());
-        for (var entry : bucket) 
-            if (entry.getKey().equals(key)) {
-                entry.setValue(value);
-                return;
-            }
-        bucket.add(new AbstractMap.SimpleEntry<>(key, value));
-    }
-    
-    public V get(K key) {
-        for (var entry : table.get(Math.abs(key.hashCode()) % table.size()))
-            if (entry.getKey().equals(key)) return entry.getValue();
+    V g(K k) {
+        for(var e:t.get(k.hashCode()%10)) if(e.getKey().equals(k)) return e.getValue();
         return null;
     }
 }
