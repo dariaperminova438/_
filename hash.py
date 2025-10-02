@@ -1,4 +1,13 @@
-class HashTable:
-    def __init__(self): self.t=[[] for _ in range(10)]
-    def put(self,k,v): [b.append((k,v)) for b in [self.t[hash(k)%10]] if k not in [p[0] for p in b]]
-    def get(self,k): return next((v for key,v in self.t[hash(k)%10] if key==k),None)
+# Создание словаря для хранения стран и их столиц
+country_capital = {}
+
+# Добавление элементов в словарь
+country_capital["Russia"] = "Moscow"
+country_capital["Germany"] = "Berlin"
+country_capital["France"] = "Paris"
+country_capital["Japan"] = "Tokyo"
+
+# Вывод всех элементов словаря
+print("Countries and their capitals:")
+for country, capital in country_capital.items():
+    print(f"{country} - {capital}")
